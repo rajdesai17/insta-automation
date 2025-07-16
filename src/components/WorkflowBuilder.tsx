@@ -173,7 +173,7 @@ const WorkflowBuilder = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-50" style={{ fontFamily: 'Montserrat, system-ui, sans-serif' }}>
+    <div className="flex h-screen" style={{ fontFamily: 'Montserrat, system-ui, sans-serif' }}>
       {/* Sidebar */}
       <div className="w-16 bg-white border-r border-gray-200 flex flex-col items-center py-4 space-y-4">
         <div className="w-8 h-8 bg-black rounded flex items-center justify-center text-white font-bold text-lg">m</div>
@@ -181,121 +181,126 @@ const WorkflowBuilder = () => {
         <FiMessageCircle color="#6b7280" size={32} />
         <FiSettings color="#6b7280" size={32} />
       </div>
-      <div className="flex-1 p-8 flex flex-row justify-between relative">
-        <div className="w-[400px] mx-auto flex flex-col gap-6">
-          {/* Step 1: Post selection */}
-          <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
-            <div className="font-semibold text-lg mb-3 text-[#101828]">When someone comments on</div>
-            <RadioGroup value={commentType} onChange={e => setCommentType(e.target.value)}>
-              <FormControlLabel value="specific" control={<Radio sx={{ color: '#667085', '&.Mui-checked': { color: '#2563eb' } }} />} label={<span className="text-[#101828] text-base">a specific post or reel</span>} />
-              <div className="flex gap-2 mb-2 mt-2">
-                {posts.map(post => (
-                  <div key={post.id} className={`w-20 h-20 rounded-lg overflow-hidden border cursor-pointer transition-all ${selectedPost === post.id ? 'border-blue-500 ring-2 ring-blue-100 bg-blue-50' : 'border-gray-200 hover:border-blue-300'} flex items-center justify-center`} onClick={() => setSelectedPost(post.id)}>
-                    <img src={post.img} alt={post.title} className="object-cover w-full h-full" />
-                  </div>
-                ))}
-              </div>
-              <button className="text-blue-600 text-sm font-medium mb-2 ml-1 hover:underline" type="button">Show All</button>
-              <FormControlLabel value="any" control={<Radio sx={{ color: '#667085', '&.Mui-checked': { color: '#2563eb' } }} />} label={<span className="flex items-center text-[#101828] text-base">any post or reel <span className="ml-2 bg-blue-50 text-blue-600 text-xs font-semibold rounded px-2 py-0.5">PRO</span></span>} />
-              <FormControlLabel value="next" control={<Radio sx={{ color: '#667085', '&.Mui-checked': { color: '#2563eb' } }} />} label={<span className="flex items-center text-[#101828] text-base">next post or reel <span className="ml-2 bg-blue-50 text-blue-600 text-xs font-semibold rounded px-2 py-0.5">PRO</span></span>} />
-            </RadioGroup>
-            {step === 0 && (
-              <button className="mt-6 w-full px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-base shadow-sm hover:bg-blue-700 transition" onClick={() => setStep(1)}>Next</button>
-            )}
-          </div>
-
-          {/* Step 2: Comment keyword */}
-          {step >= 1 && (
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col gap-4">
-              <div className="text-[17px] font-semibold mb-3 text-[#101828]">And this comment has</div>
+      {/* Main content split: left (workflow selection) white, right (preview) gray */}
+      <div className="flex flex-1 h-full">
+        {/* Workflow selection panel */}
+        <div className="w-[420px] min-w-[320px] max-w-[480px] bg-white flex flex-col justify-start" style={{ boxShadow: '0 0 0 1px #f3f4f6' }}>
+          <div className="flex-1 flex flex-col justify-start">
+            {/* Step 1: Post selection */}
+            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6">
+              <div className="font-semibold text-lg mb-3 text-[#101828]">When someone comments on</div>
               <RadioGroup value={commentType} onChange={e => setCommentType(e.target.value)}>
-                <div className={`rounded-xl p-4 mb-2 ${commentType === 'specific' ? 'bg-blue-50 border border-blue-100' : ''}`}> 
-                  <FormControlLabel value="specific" control={<Radio sx={{ color: '#2563eb', '&.Mui-checked': { color: '#2563eb' }, p: 0, mr: 1 }} />} label={<span className="text-[15px] font-medium text-[#101828]">a specific word or words</span>} />
-                  {commentType === 'specific' && (
-                    <div className="mt-3">
-                      <input
-                        className="w-full rounded-lg border border-gray-300 bg-white text-[15px] font-normal text-[#101828] px-3 py-2 focus:border-blue-500 outline-none mb-2"
-                        value={keywords}
-                        onChange={e => setKeywords(e.target.value)}
-                        placeholder="Price"
+                <FormControlLabel value="specific" control={<Radio sx={{ color: '#667085', '&.Mui-checked': { color: '#2563eb' } }} />} label={<span className="text-[#101828] text-base">a specific post or reel</span>} />
+                <div className="flex gap-2 mb-2 mt-2">
+                  {posts.map(post => (
+                    <div key={post.id} className={`w-20 h-20 rounded-lg overflow-hidden border cursor-pointer transition-all ${selectedPost === post.id ? 'border-blue-500 ring-2 ring-blue-100 bg-blue-50' : 'border-gray-200 hover:border-blue-300'} flex items-center justify-center`} onClick={() => setSelectedPost(post.id)}>
+                      <img src={post.img} alt={post.title} className="object-cover w-full h-full" />
+                    </div>
+                  ))}
+                </div>
+                <button className="text-blue-600 text-sm font-medium mb-2 ml-1 hover:underline" type="button">Show All</button>
+                <FormControlLabel value="any" control={<Radio sx={{ color: '#667085', '&.Mui-checked': { color: '#2563eb' } }} />} label={<span className="flex items-center text-[#101828] text-base">any post or reel <span className="ml-2 bg-blue-50 text-blue-600 text-xs font-semibold rounded px-2 py-0.5">PRO</span></span>} />
+                <FormControlLabel value="next" control={<Radio sx={{ color: '#667085', '&.Mui-checked': { color: '#2563eb' } }} />} label={<span className="flex items-center text-[#101828] text-base">next post or reel <span className="ml-2 bg-blue-50 text-blue-600 text-xs font-semibold rounded px-2 py-0.5">PRO</span></span>} />
+              </RadioGroup>
+              {step === 0 && (
+                <button className="mt-6 w-full px-4 py-2 rounded-lg bg-blue-600 text-white font-semibold text-base shadow-sm hover:bg-blue-700 transition" onClick={() => setStep(1)}>Next</button>
+              )}
+            </div>
+
+            {/* Step 2: Comment keyword */}
+            {step >= 1 && (
+              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col gap-4">
+                <div className="text-[17px] font-semibold mb-3 text-[#101828]">And this comment has</div>
+                <RadioGroup value={commentType} onChange={e => setCommentType(e.target.value)}>
+                  <div className={`rounded-xl p-4 mb-2 ${commentType === 'specific' ? 'bg-blue-50 border border-blue-100' : ''}`}> 
+                    <FormControlLabel value="specific" control={<Radio sx={{ color: '#2563eb', '&.Mui-checked': { color: '#2563eb' }, p: 0, mr: 1 }} />} label={<span className="text-[15px] font-medium text-[#101828]">a specific word or words</span>} />
+                    {commentType === 'specific' && (
+                      <div className="mt-3">
+                        <input
+                          className="w-full rounded-lg border border-gray-300 bg-white text-[15px] font-normal text-[#101828] px-3 py-2 focus:border-blue-500 outline-none mb-2"
+                          value={keywords}
+                          onChange={e => setKeywords(e.target.value)}
+                          placeholder="Price"
+                        />
+                        <div className="text-[#667085] text-[13px] mb-1 font-normal">Use commas to separate words</div>
+                        <div className="text-[#667085] text-[13px] flex items-center gap-1 font-normal">For example: <span className="flex gap-1">{['Price', 'Link', 'Shop'].map(word => (
+                          <button
+                            key={word}
+                            type="button"
+                            className="bg-blue-50 border border-blue-200 text-blue-700 rounded-full px-2 py-0.5 text-[13px] font-medium hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
+                            onClick={() => setKeywords(word)}
+                          >
+                            {word}
+                          </button>
+                        ))}</span></div>
+                      </div>
+                    )}
+                  </div>
+                  <div className={`rounded-xl p-4 ${commentType === 'any' ? 'bg-blue-50 border border-blue-100' : ''}`}> 
+                    <FormControlLabel value="any" control={<Radio sx={{ color: '#2563eb', '&.Mui-checked': { color: '#2563eb' }, p: 0, mr: 1 }} />} label={<span className="text-[15px] font-medium text-[#101828]">any word</span>} />
+                  </div>
+                </RadioGroup>
+                {step === 1 && (
+                  <button className="mt-2 w-full px-4 py-2 rounded-lg bg-white border border-gray-300 text-[15px] font-medium text-[#101828] shadow-sm hover:bg-gray-50 transition" onClick={() => setStep(2)}>Next</button>
+                )}
+              </div>
+            )}
+
+            {/* Step 3: DM message */}
+            {step >= 2 && (
+              <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col gap-6">
+                <div className="font-semibold text-lg mb-3 text-[#101828]">They will get</div>
+                {/* Opening DM section */}
+                <div className="mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[#101828] text-base font-medium">an opening DM</span>
+                    <Switch checked={dmEnabled} onChange={e => setDmEnabled(e.target.checked)} sx={{
+                      '& .MuiSwitch-switchBase.Mui-checked': { color: '#22C55E' },
+                      '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#22C55E' },
+                    }} />
+                  </div>
+                  {dmEnabled && (
+                    <div className="flex flex-col gap-2">
+                      <textarea
+                        className="rounded-lg bg-[#F2F4F7] border border-gray-200 text-[#101828] text-base px-3 py-2 min-h-[64px] resize-none focus:border-blue-500 outline-none"
+                        value={dmOpening}
+                        onChange={e => setDmOpening(e.target.value)}
                       />
-                      <div className="text-[#667085] text-[13px] mb-1 font-normal">Use commas to separate words</div>
-                      <div className="text-[#667085] text-[13px] flex items-center gap-1 font-normal">For example: <span className="flex gap-1">{['Price', 'Link', 'Shop'].map(word => (
-                        <button
-                          key={word}
-                          type="button"
-                          className="bg-blue-50 border border-blue-200 text-blue-700 rounded-full px-2 py-0.5 text-[13px] font-medium hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
-                          onClick={() => setKeywords(word)}
-                        >
-                          {word}
-                        </button>
-                      ))}</span></div>
+                      <input
+                        className="rounded-lg bg-[#F2F4F7] border border-gray-200 text-[#101828] text-base px-3 py-2 focus:border-blue-500 outline-none"
+                        value={dmLink}
+                        onChange={e => setDmLink(e.target.value)}
+                        placeholder="Send me the link"
+                      />
+                      <a href="#" className="text-blue-600 text-sm font-medium flex items-center gap-1 mt-1 hover:underline">
+                        <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1.333A6.667 6.667 0 1 1 1.333 8 6.674 6.674 0 0 1 8 1.333Zm0 2.667a.667.667 0 0 0-.667.667v2a.667.667 0 0 0 1.334 0v-2A.667.667 0 0 0 8 4Zm0 5.333a.667.667 0 1 0 0 1.334.667.667 0 0 0 0-1.334Z" fill="#2563eb"/></svg>
+                        Why does an Opening DM matter?
+                      </a>
                     </div>
                   )}
                 </div>
-                <div className={`rounded-xl p-4 ${commentType === 'any' ? 'bg-blue-50 border border-blue-100' : ''}`}> 
-                  <FormControlLabel value="any" control={<Radio sx={{ color: '#2563eb', '&.Mui-checked': { color: '#2563eb' }, p: 0, mr: 1 }} />} label={<span className="text-[15px] font-medium text-[#101828]">any word</span>} />
+                {/* DM with the link section */}
+                <div className="mb-2">
+                  <div className="text-[#101828] text-base font-medium mb-2">a DM with the link</div>
+                  <textarea
+                    className="rounded-lg border border-red-300 bg-[#FEF3F2] text-[#101828] text-base px-3 py-2 min-h-[64px] resize-none focus:border-red-500 outline-none w-full"
+                    value={dmMessage}
+                    onChange={e => setDmMessage(e.target.value)}
+                    placeholder="Create the DM you’d like to send"
+                  />
+                  <div className="text-[#F04438] text-xs mt-1 mb-2">Create the DM you’d like to send</div>
+                  <button type="button" className="w-full flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-[#F2F4F7] text-[#344054] font-semibold py-2 text-base mt-1 hover:bg-gray-100 transition">
+                    <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M10 4.167v11.666M4.167 10h11.666" stroke="#667085" strokeWidth="1.67" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    Add A Link
+                  </button>
                 </div>
-              </RadioGroup>
-              {step === 1 && (
-                <button className="mt-2 w-full px-4 py-2 rounded-lg bg-white border border-gray-300 text-[15px] font-medium text-[#101828] shadow-sm hover:bg-gray-50 transition" onClick={() => setStep(2)}>Next</button>
-              )}
-            </div>
-          )}
-
-          {/* Step 3: DM message */}
-          {step >= 2 && (
-            <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-6 flex flex-col gap-6">
-              <div className="font-semibold text-lg mb-3 text-[#101828]">They will get</div>
-              {/* Opening DM section */}
-              <div className="mb-4">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-[#101828] text-base font-medium">an opening DM</span>
-                  <Switch checked={dmEnabled} onChange={e => setDmEnabled(e.target.checked)} sx={{
-                    '& .MuiSwitch-switchBase.Mui-checked': { color: '#22C55E' },
-                    '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': { backgroundColor: '#22C55E' },
-                  }} />
-                </div>
-                {dmEnabled && (
-                  <div className="flex flex-col gap-2">
-                    <textarea
-                      className="rounded-lg bg-[#F2F4F7] border border-gray-200 text-[#101828] text-base px-3 py-2 min-h-[64px] resize-none focus:border-blue-500 outline-none"
-                      value={dmOpening}
-                      onChange={e => setDmOpening(e.target.value)}
-                    />
-                    <input
-                      className="rounded-lg bg-[#F2F4F7] border border-gray-200 text-[#101828] text-base px-3 py-2 focus:border-blue-500 outline-none"
-                      value={dmLink}
-                      onChange={e => setDmLink(e.target.value)}
-                      placeholder="Send me the link"
-                    />
-                    <a href="#" className="text-blue-600 text-sm font-medium flex items-center gap-1 mt-1 hover:underline">
-                      <svg width="16" height="16" fill="none" viewBox="0 0 16 16"><path d="M8 1.333A6.667 6.667 0 1 1 1.333 8 6.674 6.674 0 0 1 8 1.333Zm0 2.667a.667.667 0 0 0-.667.667v2a.667.667 0 0 0 1.334 0v-2A.667.667 0 0 0 8 4Zm0 5.333a.667.667 0 1 0 0 1.334.667.667 0 0 0 0-1.334Z" fill="#2563eb"/></svg>
-                      Why does an Opening DM matter?
-                    </a>
-                  </div>
-                )}
               </div>
-              {/* DM with the link section */}
-              <div className="mb-2">
-                <div className="text-[#101828] text-base font-medium mb-2">a DM with the link</div>
-                <textarea
-                  className="rounded-lg border border-red-300 bg-[#FEF3F2] text-[#101828] text-base px-3 py-2 min-h-[64px] resize-none focus:border-red-500 outline-none w-full"
-                  value={dmMessage}
-                  onChange={e => setDmMessage(e.target.value)}
-                  placeholder="Create the DM you’d like to send"
-                />
-                <div className="text-[#F04438] text-xs mt-1 mb-2">Create the DM you’d like to send</div>
-                <button type="button" className="w-full flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-[#F2F4F7] text-[#344054] font-semibold py-2 text-base mt-1 hover:bg-gray-100 transition">
-                  <svg width="20" height="20" fill="none" viewBox="0 0 20 20"><path d="M10 4.167v11.666M4.167 10h11.666" stroke="#667085" strokeWidth="1.67" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                  Add A Link
-                </button>
-              </div>
-            </div>
-          )}
+            )}
+          </div>
         </div>
-        {/* Phone Preview */}
-        <div className="flex-1 flex justify-center items-center">
+        {/* Preview panel */}
+        <div className="flex-1 flex items-center justify-center bg-gray-50">
+          {/* Phone Preview */}
           <div className="relative flex flex-col items-center" style={{ width: 340, height: 700 }}>
             {/* Phone frame */}
             <div className="absolute inset-0 rounded-[40px] bg-black shadow-2xl border-4 border-gray-200 z-0" />
