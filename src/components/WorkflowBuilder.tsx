@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Radio, RadioGroup, FormControlLabel, Switch } from '@mui/material';
 import { FiHome, FiMessageCircle, FiSettings, FiHeart, FiSend, FiBookmark, FiMoreHorizontal, FiChevronLeft, FiPhone, FiVideo, FiBattery, FiWifi, FiMenu } from 'react-icons/fi';
 import { BsChat } from 'react-icons/bs';
