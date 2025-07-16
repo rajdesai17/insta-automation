@@ -4,6 +4,7 @@ import { FiHome, FiMessageCircle, FiSettings, FiHeart, FiSend, FiBookmark, FiMor
 import { BsChat } from 'react-icons/bs';
 import { AiOutlineUser } from 'react-icons/ai';
 import { FaRegHeart, FaRegPaperPlane, FaRegUserCircle, FaPlusCircle, FaCamera, FaRegImage, FaRegSmile } from 'react-icons/fa';
+import buttonImg from '../assets/button.png';
 
 const posts = [
   {
@@ -78,37 +79,42 @@ const WorkflowBuilder = () => {
       {/* DM messages */}
       <div className="flex-1 flex flex-col gap-2 px-4 py-4 overflow-y-auto">
         {/* Received message */}
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-2 mb-1">
           <FaRegUserCircle color="#fff" size={28} />
-          <div className="bg-[#18191a] rounded-2xl px-3 py-2 text-white text-sm max-w-[75%]">
+          <div className="bg-[#18191a] rounded-2xl px-3 py-2 text-white text-sm max-w-[75%] shadow border border-[#232323]">
             <div>Hey there! I’m so happy you’re here, thanks so much for your interest <span role='img' aria-label='smile'>😊</span></div>
             <div className="mt-1">Click below and I’ll send you the link in just a sec <span role='img' aria-label='sparkle'>✨</span></div>
             <button className="block mt-2 bg-[#2323fa] text-white text-xs rounded-lg px-3 py-1">Send me the link</button>
           </div>
         </div>
         {/* Sent message */}
-        <div className="flex justify-end">
-          <div className="bg-[#7b61ff] rounded-2xl px-3 py-2 text-white text-sm max-w-[60%]">Send me the link</div>
+        <div className="flex justify-end mb-1">
+          <div className="bg-[#7b61ff] rounded-2xl px-3 py-2 text-white text-sm max-w-[60%] shadow border border-[#232323]">Send me the link</div>
         </div>
         {/* Received message (dynamic) */}
-        <div className="flex items-start gap-2">
+        <div className="flex items-start gap-2 mb-1">
           <FaRegUserCircle color="#fff" size={28} />
-          <div className="bg-[#18191a] rounded-2xl px-3 py-2 text-white text-sm max-w-[75%]">{dmMessage}</div>
+          <div className="bg-[#18191a] rounded-2xl px-3 py-2 text-white text-sm max-w-[75%] shadow border border-[#232323]">{dmMessage}</div>
         </div>
       </div>
-      {/* Input row - Instagram style */}
-      <div className="flex items-center gap-2 px-3 py-2 bg-[#232323] rounded-full mx-4 mb-4 border border-[#232323]">
-        <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center">
-          <FaCamera color="#fff" size={20} />
+      {/* Input row - Instagram style, icons close and fit within preview */}
+      <div className="flex items-center px-2 py-1.5 bg-[#232323] rounded-full mx-2 mb-4 border border-[#232323] absolute left-0 right-0 bottom-0 shadow-inner" style={{ height: 48, minHeight: 44 }}>
+        <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center shrink-0">
+          <FaCamera color="#fff" size={18} />
         </div>
-        <input
-          className="flex-1 bg-transparent outline-none border-none text-[15px] text-gray-300 placeholder-gray-400 px-2"
-          placeholder="Message..."
-          disabled
-        />
-        <span className="mx-1"><FaRegImage color="#d1d5db" size={20} /></span>
-        <span className="mx-1"><FaRegSmile color="#d1d5db" size={20} /></span>
-        <span className="mx-1"><FaPlusCircle color="#d1d5db" size={20} /></span>
+        <div className="flex-1 flex items-center">
+          <input
+            className="w-full bg-transparent outline-none border-none text-[15px] text-gray-300 placeholder-gray-400 px-0"
+            placeholder="Message..."
+            disabled
+            style={{ height: 32, marginLeft: '14px' }}
+          />
+        </div>
+        <div className="flex items-center gap-0 ml-0">
+          <span className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#292929] transition"><FaRegImage color="#d1d5db" size={17} /></span>
+          <span className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#292929] transition"><FaRegSmile color="#d1d5db" size={17} /></span>
+          <span className="flex items-center justify-center w-7 h-7 rounded-full hover:bg-[#292929] transition"><FaPlusCircle color="#d1d5db" size={17} /></span>
+        </div>
       </div>
     </div>
   );
@@ -146,14 +152,15 @@ const WorkflowBuilder = () => {
               </div>
             </div>
             {/* Input row */}
-            <div className="px-5 pb-5">
-              <div className="flex items-center bg-[#181818] rounded-full px-3 py-2">
-                <div className="w-7 h-7 rounded-full bg-black flex items-center justify-center mr-2">
-                  <FaPlusCircle color="#fff" size={18} />
+            <div className="px-3 pb-4">
+              <div className="flex items-center bg-[#232323] rounded-full border border-[#232323] shadow-inner px-2 py-1.5" style={{height: 44, minHeight: 40}}>
+                <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center shrink-0 p-0 m-0 overflow-hidden">
+                  <img src={buttonImg} alt="button" className="w-full h-full object-cover rounded-full" />
                 </div>
                 <input
-                  className="flex-1 bg-transparent border-none outline-none text-neutral-400 text-sm placeholder:text-neutral-400"
+                  className="flex-1 bg-transparent outline-none border-none text-[15px] text-gray-300 placeholder-gray-400 px-2"
                   placeholder="Add a comment for username..."
+                  style={{height: 32, marginLeft: '10px'}}
                 />
               </div>
             </div>
