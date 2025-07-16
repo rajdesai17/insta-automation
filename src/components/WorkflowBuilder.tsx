@@ -213,7 +213,16 @@ const WorkflowBuilder = () => {
                         placeholder="Price"
                       />
                       <div className="text-[#667085] text-[13px] mb-1 font-normal">Use commas to separate words</div>
-                      <div className="text-[#667085] text-[13px] flex items-center gap-1 font-normal">For example: <span className="flex gap-1">{['Price', 'Link', 'Shop'].map(word => <span key={word} className="bg-blue-50 border border-blue-200 text-blue-700 rounded-full px-2 py-0.5 text-[13px] font-medium">{word}</span>)}</span></div>
+                      <div className="text-[#667085] text-[13px] flex items-center gap-1 font-normal">For example: <span className="flex gap-1">{['Price', 'Link', 'Shop'].map(word => (
+                        <button
+                          key={word}
+                          type="button"
+                          className="bg-blue-50 border border-blue-200 text-blue-700 rounded-full px-2 py-0.5 text-[13px] font-medium hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-blue-300 transition"
+                          onClick={() => setKeywords(word)}
+                        >
+                          {word}
+                        </button>
+                      ))}</span></div>
                     </div>
                   )}
                 </div>
@@ -331,8 +340,8 @@ const WorkflowBuilder = () => {
               <div className="flex justify-center items-center py-2">
                 <div className="w-16 h-1.5 bg-gray-700 rounded-full" />
               </div>
-              {/* Fixed bottom tab bar (hide when comments overlay is open) */}
-              {step !== 1 && (
+              {/* Fixed bottom tab bar (hide when comments overlay is open or in DM view) */}
+              {step !== 1 && step !== 2 && (
                 <div className="absolute left-0 bottom-10 w-full flex items-center justify-around px-2 py-2 border-t border-[#222] bg-black/80">
                   <FiHome color="#fff" size={24} />
                   <FiMessageCircle color="#fff" size={24} />
